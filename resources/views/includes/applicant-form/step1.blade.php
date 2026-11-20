@@ -130,22 +130,22 @@
                                             <div class="flex flex-col gap-2 py-5">
 
                                                 <div class="applicant-form__input-wrap">
-                                                    <label for="phone">@lang('Phone')<sup>*</sup></label>
-                                                    <input class="applicant-form__input applyPhoneMask" type="text"
-                                                        name="phone" id="step0_phone" placeholder="@lang('Your Phone number')"
-                                                        inputmode="tel"
-                                                        value="{{ old('phone', $application ? $application->phone : '') }}"
-                                                        @if ($hasLoginConsumers) readonly @endif required />
-                                                </div>
-
-                                                <div class="applicant-form__input-wrap">
                                                     <label for="email">@lang('E-mail')<sup>*</sup></label>
                                                     <input class="applicant-form__input applyEmailMask" name="email"
-                                                        id="step0_email" type="text" inputmode="email" autocomplete="off"
+                                                        id="step0_email" type="email" inputmode="email" autocomplete="email"
                                                         placeholder="@lang('Your E-mail')"
                                                         value="{{ old('email', $application ? $application->email : '') }}"
                                                         @if ($hasLoginConsumers) readonly @endif required />
                                                 </div>
+
+                                                @if (!$hasLoginConsumers)
+                                                    <div class="applicant-form__input-wrap">
+                                                        <label for="password">@lang('Parole')<sup>*</sup></label>
+                                                        <input class="applicant-form__input" name="password"
+                                                            id="step0_password" type="password" autocomplete="new-password"
+                                                            placeholder="••••••••" required />
+                                                    </div>
+                                                @endif
                                                 {{-- Checkboxes --}}
                                                 <div class="flex flex-col justify-start">
                                                     <div class="text-left applicant-form__checkbox-wrap">
@@ -167,19 +167,29 @@
                                                 </div>
                                                 <div class="flex flex-col justify-start">
                                                     <div class="text-left applicant-form__checkbox-wrap">
+                                                        <input type="hidden" name="subscribed_email" value="0">
                                                         <input
                                                             class="mr-1 text-base border-gray-300 rounded text-loan-normal focus:ring-loan-dark"
-                                                            name="subscribe" id="subscribe"
-                                                            x-model="recieveOffersChecked" value="1"
+                                                            name="subscribed_email" id="subscribed_email"
+                                                            x-model="subscribeEmailChecked" value="1"
                                                             type="checkbox" />
                                                         <label class="text-sm font-normal text-left text-gray-600"
-                                                            for="subscribe">
-                                                            @lang('main.i_agree')
-                                                            <span
-                                                                class="underline cursor-pointer text-loan-normal hover:text-loan-dark"
-                                                                @click="recieveOffersModalClosed = false"
-                                                                onclick="event.preventDefault();">
-                                                                @lang('main.to_receive_marketing_offers')</span>
+                                                            for="subscribed_email">
+                                                            @lang('Piekrītu saņemt jaunumus un aizdevēju piedāvājumus e-pastā')
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col justify-start">
+                                                    <div class="text-left applicant-form__checkbox-wrap">
+                                                        <input type="hidden" name="subscribed_sms" value="0">
+                                                        <input
+                                                            class="mr-1 text-base border-gray-300 rounded text-loan-normal focus:ring-loan-dark"
+                                                            name="subscribed_sms" id="subscribed_sms"
+                                                            x-model="subscribeSmsChecked" value="1"
+                                                            type="checkbox" />
+                                                        <label class="text-sm font-normal text-left text-gray-600"
+                                                            for="subscribed_sms">
+                                                            @lang('Piekrītu saņemt jaunumus un aizdevēju piedāvājumus telefonā (SMS)')
                                                         </label>
                                                     </div>
                                                 </div>

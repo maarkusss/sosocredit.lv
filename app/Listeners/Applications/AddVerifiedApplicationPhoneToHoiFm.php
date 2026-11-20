@@ -16,7 +16,7 @@ class AddVerifiedApplicationPhoneToHoiFm
     {
         $application = $event->application;
 
-        if (empty($application->phone_verified_at)) {
+        if (empty($application->phone_verified_at) || empty($application->phone)) {
             return;
         }
 

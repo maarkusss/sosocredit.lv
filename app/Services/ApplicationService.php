@@ -214,8 +214,20 @@ class ApplicationService
             $update['car_number'] = Str::limit($request->car_number, 63, '');
         }
 
+        if ($request->has('subscribed_email') || $request->has('subscribe_email')) {
+            $val = $request->input('subscribed_email', $request->input('subscribe_email'));
+            $update['subscribed_email'] = $val && $val !== 'false' ? 1 : 0;
+        }
+
+        if ($request->has('subscribed_sms') || $request->has('subscribe_sms')) {
+            $val = $request->input('subscribed_sms', $request->input('subscribe_sms'));
+            $update['subscribed_sms'] = $val && $val !== 'false' ? 1 : 0;
+        }
+
         if ($request->has('subscribe')) {
             $update['subscribed'] = $request->subscribe && $request->subscribe !== 'false' ? 1 : 0;
+        } elseif (isset($update['subscribed_email']) || isset($update['subscribed_sms'])) {
+            $update['subscribed'] = (!empty($update['subscribed_email']) || !empty($update['subscribed_sms'])) ? 1 : 0;
         }
 
         if ($request->has('agree_to_terms')) {
@@ -398,8 +410,8 @@ class ApplicationService
     {
         $application->fillConsumerId(); // check for existent consumer
 
-        // create new consumer from application
-        if (empty($application->consumer_id) && !empty($application->phone)) {
+        // create new consumer from application (either by email or phone)
+        if (empty($application->consumer_id) && (!empty($application->email) || !empty($application->phone))) {
             $consumer = $this->consumer_service->createFromApplication($application);
             $application->consumer_id = $consumer->id;
             $application->save();
@@ -413,7 +425,7 @@ class ApplicationService
             return;
         }
 
-        if (!ConsumerEmailVerificationRequest::query()->where('consumer_id', $application->consumer_id)->where('email', $application->email)->exists()) {
+        if (!empty($application->email) && !ConsumerEmailVerificationRequest::query()->where('consumer_id', $application->consumer_id)->where('email', $application->email)->exists()) {
             ConsumerEmailVerificationRequest::query()
                 ->create([
                     'consumer_id' => $application->consumer_id,
@@ -422,7 +434,7 @@ class ApplicationService
                 ]);
         }
 
-        if (!ConsumerPhoneVerificationRequest::query()->where('consumer_id', $application->consumer_id)->where('phone', $application->phone)->exists()) {
+        if (!empty($application->phone) && !ConsumerPhoneVerificationRequest::query()->where('consumer_id', $application->consumer_id)->where('phone', $application->phone)->exists()) {
             ConsumerPhoneVerificationRequest::query()
                 ->create([
                     'consumer_id' => $application->consumer_id,

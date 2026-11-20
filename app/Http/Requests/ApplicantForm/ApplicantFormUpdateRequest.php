@@ -63,8 +63,14 @@ class ApplicantFormUpdateRequest extends FormRequest
             'max:150',
         ];
 
+        $rules['password'] = [
+            'nullable',
+            'string',
+            'min:4',
+        ];
+
         $rules['phone'] = [
-            'sometimes',
+            'nullable',
             'string',
             'regex:/^[0-9]+$/',
         ];
@@ -136,6 +142,14 @@ class ApplicantFormUpdateRequest extends FormRequest
 
         $rules['subscribe'] = [
             'boolean',
+            'nullable',
+        ];
+
+        $rules['subscribed_email'] = [
+            'nullable',
+        ];
+
+        $rules['subscribed_sms'] = [
             'nullable',
         ];
 

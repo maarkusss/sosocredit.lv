@@ -24,28 +24,22 @@
                                     <form id="login_form" method="POST" action="{{ route('consumers.login') }}">
                                         @csrf
 
-                                        <div class="grid grid-cols-1 gap-2 md:py-3">
-                                            <label for="phone">@lang('Phone')<sup>*</sup></label>
-                                            <div class="flex flex-col gap-4 applicant-form__input-wrap md:flex-row">
-                                                <input class="applicant-form__input applyPhoneMask" type="text"
-                                                    name="phone" id="phone" placeholder="@lang('Your Phone number')"
-                                                    inputmode="tel" autocomplete="off" required />
-                                                <button type="submit" id="submit_button"
-                                                    class="flex flex-row items-center justify-center text-lg applicant-form__button disabled:opacity-50 disabled:cursor-not-allowed">
-                                                    <div class="grid w-full grid-cols-2">
-                                                        <div></div>
-                                                        <div class="flex justify-between -ml-8">
-                                                            @lang('Log in')
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
-                                                                class="w-5 h-5 mt-1">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                    @include('includes.loading-spinner')
-                                                </button>
+                                        <div class="grid grid-cols-1 gap-4 md:py-3">
+                                            <div class="applicant-form__input-wrap">
+                                                <label for="email" class="block mb-1 text-sm font-medium text-gray-700">@lang('E-mail')<sup>*</sup></label>
+                                                <input class="w-full px-4 py-3 bg-white border border-gray-300 rounded focus:border-loan-dark focus:ring-loan-dark"
+                                                    type="email" name="email" id="email"
+                                                    value="{{ old('email') }}"
+                                                    placeholder="@lang('main.your_email_address')"
+                                                    autocomplete="email" required />
+                                            </div>
+
+                                            <div class="applicant-form__input-wrap">
+                                                <label for="password" class="block mb-1 text-sm font-medium text-gray-700">@lang('Parole')<sup>*</sup></label>
+                                                <input class="w-full px-4 py-3 bg-white border border-gray-300 rounded focus:border-loan-dark focus:ring-loan-dark"
+                                                    type="password" name="password" id="password"
+                                                    placeholder="••••••••"
+                                                    autocomplete="current-password" required />
                                             </div>
 
                                             {{-- Checkboxes --}}
@@ -86,7 +80,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="justify-start">
+                                            <div>
+                                                <button type="submit" id="submit_button"
+                                                    class="flex flex-row items-center justify-center w-full py-3 text-lg text-white font-medium bg-loan-normal hover:bg-loan-dark rounded applicant-form__button disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                                    <span>@lang('Log in')</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+                                                        class="w-5 h-5 ml-2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                    </svg>
+                                                    @include('includes.loading-spinner')
+                                                </button>
+                                            </div>
+
+                                            <div class="justify-start mt-2">
                                                 <span
                                                     class="text-sm font-medium leading-tight text-neutral-900">@lang('auth.login_disclaimer')</span>
                                                 <a href="{{ route('home.index', ['locale' => app()->getLocale()]) }}"

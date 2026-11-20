@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="loan-icon loan-icon--business">
+    <!-- Background Circle -->
+    <circle cx="32" cy="32" r="30" class="icon-bg" fill="#ECEFF1" stroke="#37474F" stroke-width="2"/>
+    
+    <!-- Briefcase Body -->
+    <rect x="14" y="24" width="36" height="24" rx="4" class="icon-primary" fill="#90A4AE" stroke="#263238" stroke-width="2.5"/>
+    
+    <!-- Briefcase Top Handle -->
+    <path d="M25 24V19C25 17.5 26.2 16 28 16H36C37.8 16 39 17.5 39 19V24" stroke="#263238" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Front Clasp & Center Band -->
+    <path d="M14 33H50" stroke="#263238" stroke-width="1.8"/>
+    <rect x="29" y="30" width="6" height="6" rx="1" fill="#FFD54F" stroke="#263238" stroke-width="1.5"/>
+    
+    <!-- Growth Chart Overlay Badge -->
+    <circle cx="47" cy="45" r="9" fill="#2E7D32" stroke="#FFFFFF" stroke-width="1.8"/>
+    <path d="M42 47L45 44L47 46L51 41" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M48 41H51V44" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

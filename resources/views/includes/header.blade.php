@@ -158,11 +158,11 @@
 
             @if (config('app.broker_enabled'))
                 @if (!empty($user->id))
-                    <div class="header__wrapper__locales">
-                        <div class="relative">
-                            <button
-                                class="flex flex-row items-center justify-start gap-1 px-2 py-2 text-base font-medium leading-tight text-center text-white border border-green-600 rounded-full bg-loan-normal hover:bg-green-700 md:px-4 md:rounded"
-                                id="profileDropdown" type="button">
+                    <div class="relative" x-data="{ open: false }" @click.outside="open = false">
+                        <button
+                            class="flex flex-row items-center justify-start gap-1 px-3 py-2 text-sm md:text-base font-semibold leading-tight text-center text-white border border-green-600 rounded bg-[#3FAF4F] hover:bg-green-700 md:px-4 cursor-pointer transition-colors shadow-sm"
+                            @click="open = !open"
+                            type="button">
 
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -182,61 +182,51 @@
                                     @endif
                                 </span>
 
-                                <svg class="hidden w-3 h-3 ml-3 md:block" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="w-3.5 h-3.5 ml-1 transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 20" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
 
-                            <ul class="hidden
-                                    fixed md:absolute
-                                    top-[62px] md:top-12
-                                    left-0 md:-left-2
-                                    right-0 md:right-5
-                                    md:z-10
-                                    -mb-2
-                                    p-4
-                                    w-full md:w-36
-                                    bg-white
-                                    border-t md:border
-                                    items-start
-                                    space-y-4
-                                    border-neutral-300
-                                    text-neutral-900
-                                    md:rounded-md
-                                    shadow-lg"
-                                id="profileDropdownList">
-                                <li class="self-stretch justify-end md:justify-start rounded-t-md">
-                                    <a class="w-full text-sm font-medium link_primary"
-                                        href="{{ route('consumers.dashboard') }}">
-                                        {{ __('My applications') }}
-                                    </a>
-                                </li>
-                                <li class="inline-flex self-stretch justify-end md:justify-start rounded-b-md">
-                                    <form action="{{ route('consumers.logout') }}" method="POST" class="w-full">
-                                        @csrf
-                                        <button type="submit"
-                                            class="flex items-center w-full gap-2 text-sm font-medium leading-tight text-left link_primary"
-                                            onclick="return confirm('{{ __('Are you sure you want to log out?') }}')">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_104_12543)">
-                                                    <path
-                                                        d="M11.3125 12.25V13.5C11.3125 14.8785 10.191 16 8.8125 16H2.53125C1.15271 16 0.03125 14.8785 0.03125 13.5V2.5C0.03125 1.12146 1.15271 0 2.53125 0H8.8125C10.191 0 11.3125 1.12146 11.3125 2.5V3.75C11.3125 4.09521 11.0327 4.375 10.6875 4.375C10.3423 4.375 10.0625 4.09521 10.0625 3.75V2.5C10.0625 1.81079 9.50171 1.25 8.8125 1.25H2.53125C1.84204 1.25 1.28125 1.81079 1.28125 2.5V13.5C1.28125 14.1892 1.84204 14.75 2.53125 14.75H8.8125C9.50171 14.75 10.0625 14.1892 10.0625 13.5V12.25C10.0625 11.9048 10.3423 11.625 10.6875 11.625C11.0327 11.625 11.3125 11.9048 11.3125 12.25ZM15.5736 6.92639L14.1741 5.52686C13.9299 5.28271 13.5342 5.28271 13.2902 5.52686C13.046 5.77087 13.046 6.16663 13.2902 6.41064L14.2856 7.40625H6.78125C6.43604 7.40625 6.15625 7.68604 6.15625 8.03125C6.15625 8.37646 6.43604 8.65625 6.78125 8.65625H14.2856L13.2902 9.65186C13.046 9.89587 13.046 10.2916 13.2902 10.5356C13.4122 10.6577 13.5721 10.7188 13.7321 10.7188C13.8921 10.7188 14.052 10.6577 14.1741 10.5356L15.5736 9.13611C16.1829 8.52686 16.1829 7.53564 15.5736 6.92639Z"
-                                                        fill="currentColor" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_104_12543">
-                                                        <rect width="16" height="16" fill="white" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>{{ __('Logout') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                            <div
+                                class="absolute right-0 top-full mt-2 z-50 p-3 w-52 bg-white border border-neutral-200 text-neutral-900 rounded-lg shadow-xl"
+                                x-show="open"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95"
+                                x-cloak>
+                                <ul class="space-y-2">
+                                    <li>
+                                        <a class="flex items-center w-full px-3 py-2 text-sm font-semibold rounded text-gray-700 hover:bg-gray-100 hover:text-green-700 transition"
+                                            href="{{ route('consumers.dashboard') }}">
+                                            <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                            {{ __('Mans profils') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="flex items-center w-full px-3 py-2 text-sm font-semibold rounded text-gray-700 hover:bg-gray-100 hover:text-green-700 transition"
+                                            href="{{ route('consumers.dashboard') }}">
+                                            <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            {{ __('Mani pieteikumi') }}
+                                        </a>
+                                    </li>
+                                    <li class="pt-2 border-t border-gray-100">
+                                        <form action="{{ route('consumers.logout') }}" method="POST" class="w-full">
+                                            @csrf
+                                            <button type="submit"
+                                                class="flex items-center w-full px-3 py-2 text-sm font-semibold rounded text-red-600 hover:bg-red-50 hover:text-red-700 transition cursor-pointer"
+                                                onclick="return confirm('{{ __('Are you sure you want to log out?') }}')">
+                                                <svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                                                {{ __('Iziet') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
                 @else
                     <a href="{{ route('consumers.login') }}" aria-label="login"

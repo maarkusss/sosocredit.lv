@@ -11,11 +11,13 @@ Route::middleware('guest:consumers')
         Route::post('/consumers/login', [ConsumerSessionController::class, 'postStep1']);
         Route::get('/consumers/login/step2', [ConsumerSessionController::class, 'step2'])->name('consumers.login.step2');
         Route::post('/consumers/login/step2', [ConsumerSessionController::class, 'postStep2']);
+        Route::post('/consumers/login/resend-code', [ConsumerSessionController::class, 'resendCode'])->name('consumers.login.resend-code');
     });
 
 Route::middleware('auth:consumers')
     ->group(function () {
         Route::get('/consumers/dashboard', [ConsumerDashboardController::class, 'dashboard'])->name('consumers.dashboard');
+        Route::post('/consumers/profile/phone', [ConsumerDashboardController::class, 'updatePhone'])->name('consumers.profile.phone');
         Route::post('/consumers/logout', [ConsumerSessionController::class, 'destroy'])->name('consumers.logout');
         Route::get('/consumers/applications/{token}', [ConsumerDashboardController::class, 'applicationShow'])->name('consumers.applications.show');
         Route::match(['GET', 'POST'],'/consumers/applications/{token}/{provider}/{source?}', [ConsumerDashboardController::class, 'applicationOpenLink'])->name('consumers.applications.open-link');

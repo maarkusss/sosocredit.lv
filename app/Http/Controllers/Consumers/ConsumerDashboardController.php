@@ -66,6 +66,40 @@ class ConsumerDashboardController extends Controller
         ]);
     }
 
+    public function updatePhone(HttpRequest $request)
+    {
+        $request->validate([
+            'phone' => 'nullable|string|min:6|max:20',
+            'subscribed_email' => 'nullable|in:0,1',
+            'subscribed_sms' => 'nullable|in:0,1',
+        ]);
+
+        $consumer = Auth::guard('consumers')->user();
+
+        if ($request->has('phone')) {
+            $phone = trim((string) $request->phone);
+            $phone = preg_replace('/[^0-9]/', '', $phone);
+            if (str_starts_with($phone, '371') && strlen($phone) === 11) {
+                $phone = substr($phone, 3);
+            }
+            $consumer->phone = $phone ?: null;
+
+            // Ja lietotājs papildina tālruni, atjaunojam to arī pieteikumos, kur tas bija tukšs
+            if (!empty($consumer->phone)) {
+                $consumer->applications()->whereNull('phone')->orWhere('phone', '')->update([
+                    'phone' => $consumer->phone,
+                ]);
+            }
+        }
+
+        $consumer->subscribed_email = $request->has('subscribed_email') && $request->subscribed_email ? 1 : 0;
+        $consumer->subscribed_sms = $request->has('subscribed_sms') && $request->subscribed_sms ? 1 : 0;
+        $consumer->subscribed = ($consumer->subscribed_email || $consumer->subscribed_sms) ? 1 : 0;
+        $consumer->save();
+
+        return redirect()->back()->with('success', __('Profila informācija veiksmīgi atjaunināta!'));
+    }
+
     public function applicationShow(string $token)
     {
         $consumer = Auth::guard('consumers')->user();

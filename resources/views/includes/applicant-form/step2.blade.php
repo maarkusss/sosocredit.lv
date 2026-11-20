@@ -99,29 +99,22 @@
                                                     </div>
                                                 @else
                                                     {{-- Verification code is required: --}}
-                                                    <div class="grid grid-cols-1 gap-4 my-4 md:mx-24"
-                                                        id="phone_verification_container">
-                                                        <span
-                                                            class="block text-base font-bold leading-tight text-center text-neutral-900">
-                                                            @lang('main.to_your_phone_number')
-                                                            <span class="font-bold text-loan-normal">
-                                                                {{ $application->phone ?? '' }}
-                                                            </span>
-                                                            <span class="font-semibold text-loan-normal"
-                                                                id="phone_verification_phone"></span>
+                                                    <div class="grid grid-cols-1 gap-4 my-4 md:mx-24" id="email_phone_verification_container">
+                                                        <span class="block text-base font-bold leading-tight text-center text-neutral-900">
+                                                            @lang('Uz Jūsu e-pastu')
+                                                            <span class="font-bold text-loan-normal">{{ $application->email ?? '' }}</span>
                                                             @lang('applicant_form.sent_message_with_verification_code_input_to_continue')
                                                         </span>
 
                                                         <label class="">
                                                             <input
-                                                                class="w-full px-4 py-3 text-black bg-white border-gray-200 rounded focus:border-loan-dark focus:ring-loan-dark"
+                                                                class="w-full px-4 py-3 text-center text-2xl tracking-widest font-bold text-black bg-white border border-gray-300 rounded focus:border-loan-dark focus:ring-loan-dark"
                                                                 id="phone_verification_input" name="verification_code"
                                                                 type="text" inputmode="numeric"
                                                                 autocomplete="one-time-code" pattern="[0-9]*" minlength="6"
-                                                                maxlength="6" placeholder="@lang('main.verification_code')" required>
+                                                                maxlength="6" placeholder="••••••" required>
                                                         </label>
                                                     </div>
-
                                                     <div x-data="{
                                                         countdown: 60,
                                                         phone: '{{ $application->phone ?? '' }}',

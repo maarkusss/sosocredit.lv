@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="loan-icon loan-icon--mortgage">
+    <!-- Background Circle -->
+    <circle cx="32" cy="32" r="30" class="icon-bg" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+    
+    <!-- House Roof -->
+    <path class="icon-roof" d="M14 30L32 15L50 30" stroke="#4A148C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- House Body -->
+    <path class="icon-primary" d="M19 28V47C19 48.1 19.9 49 21 49H43C44.1 49 45 48.1 45 47V28" fill="#CE93D8" stroke="#4A148C" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Door -->
+    <rect x="27" y="37" width="10" height="12" rx="1" class="icon-door" fill="#7B1FA2" stroke="#4A148C" stroke-width="1.5"/>
+    <circle cx="35" cy="43" r="1" fill="#FFFFFF"/>
+    
+    <!-- Window with Percent/Security -->
+    <circle cx="32" cy="24" r="4" fill="#FFFFFF" stroke="#4A148C" stroke-width="1.5"/>
+    <path d="M30 22L34 26M30 25.5H30.5M33.5 22.5H34" stroke="#7B1FA2" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

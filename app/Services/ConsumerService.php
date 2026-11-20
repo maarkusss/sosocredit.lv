@@ -312,6 +312,8 @@ class ConsumerService
             'lang' => $application->lang,
             'phone' => $application->phone ?: null,
             'subscribed' => $application->subscribed,
+            'subscribed_email' => $application->subscribed_email ?? 0,
+            'subscribed_sms' => $application->subscribed_sms ?? 0,
             'term' => $application->term_months . ' mon.',
             'type' => $application->loantype,
             'utm_source' => $application->utm_source,

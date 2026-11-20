@@ -14,11 +14,19 @@ trait WorksWithMeta
     protected function metaFromSection(Section $section): array
     {
         $site_name = $this->seoSiteName();
+        $title = !empty($section->title) ? $section->title : $section->name;
+        $titleWithSite = str_contains($title, $site_name) ? $title : $title . ' - ' . $site_name;
 
         return [
-            'title' => $section->title . ' - ' . $site_name,
-            'description' => $section->description,
-            'keywords' => $section->keywords,
+            'title' => $titleWithSite,
+            'description' => $section->description ?? $title,
+            'keywords' => $section->keywords ?? '',
+            'og_title' => $titleWithSite,
+            'og_description' => $section->description ?? $title,
+            'og_type' => 'website',
+            'og_url' => url()->current(),
+            'og_site_name' => $site_name,
+            'og_locale' => app()->getLocale(),
         ];
     }
 

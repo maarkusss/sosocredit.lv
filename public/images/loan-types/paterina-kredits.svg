@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="loan-icon loan-icon--consumer">
+    <!-- Background Circle (Editojama krāsa caur CSS vai fill atribūtu) -->
+    <circle cx="32" cy="32" r="30" class="icon-bg" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+    
+    <!-- Shopping Bag Body -->
+    <path class="icon-primary" d="M18 24H46L43 50H21L18 24Z" fill="#81C784" stroke="#1B5E20" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Bag Handle -->
+    <path class="icon-secondary" d="M25 24V18C25 14.134 28.134 11 32 11C35.866 11 39 14.134 39 18V24" stroke="#1B5E20" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Euro Symbol on Bag -->
+    <circle cx="32" cy="37" r="7" fill="#FFFFFF" opacity="0.9"/>
+    <path class="icon-accent" d="M35 34.5C34.2 33.6 33.2 33.2 32 33.2C29.8 33.2 28.2 34.9 28.2 37C28.2 39.1 29.8 40.8 32 40.8C33.2 40.8 34.2 40.4 35 39.5M26.5 36H33.5M26.5 38H33.5" stroke="#1B5E20" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

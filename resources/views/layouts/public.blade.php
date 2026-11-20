@@ -44,6 +44,17 @@
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Open Graph / Facebook / Twitter SEO -->
+    <meta property="og:title" content="{{ $meta['og_title'] ?? $meta_title }}">
+    <meta property="og:description" content="{{ $meta['og_description'] ?? $meta_description }}">
+    <meta property="og:type" content="{{ $meta['og_type'] ?? 'website' }}">
+    <meta property="og:url" content="{{ $meta['og_url'] ?? url()->current() }}">
+    <meta property="og:site_name" content="{{ $meta['og_site_name'] ?? config('app.name') }}">
+    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $meta['og_title'] ?? $meta_title }}">
+    <meta name="twitter:description" content="{{ $meta['og_description'] ?? $meta_description }}">
+
     @if (!empty($is_applicant_page) || config('app.name') === 'Sosocredit.lv')
         <link rel="shortcut icon" href="/favicon2.png">
     @else
@@ -121,6 +132,8 @@
         recieveOffersModalClosed: true,
         formEditModalClosed: true,
         recieveOffersChecked: @if (!empty(old('subscribe', !empty($application) ? $application->subscribed : ''))) true @else false @endif,
+        subscribeEmailChecked: @if (!empty(old('subscribed_email', isset($application->subscribed_email) ? $application->subscribed_email : 1))) true @else false @endif,
+        subscribeSmsChecked: @if (!empty(old('subscribed_sms', isset($application->subscribed_sms) ? $application->subscribed_sms : 1))) true @else false @endif,
         privacyPolicyModalClosed: true,
         privacyPolicyChecked: @if (!empty(old('agree_to_terms', !empty($application) ? $application->agree_to_terms : ''))) true @else false @endif,
         formProcessing: false

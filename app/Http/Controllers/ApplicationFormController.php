@@ -371,6 +371,24 @@ class ApplicationFormController extends Controller
         $this->application_service->storeInSession($application, $request);
         $this->application_service->updateCompletionPercentage($application, 40);
 
+        $consumer = $application->consumer;
+
+        // Ja ievadīta parole un patērētājam tā vēl nav, saglabājam patērētāja profilā
+        if (!empty($request->password) && $consumer) {
+            $consumer->password = \Illuminate\Support\Facades\Hash::make($request->password);
+            $consumer->save();
+        }
+
+        // Ģenerējam un nosūtām e-pasta verifikācijas kodu
+        if (!empty($application->email)) {
+            $emailCode = \App\Models\Consumer\ConsumerEmailVerificationCode::generateForEmail($application->email);
+            try {
+                \Illuminate\Support\Facades\Mail::to($application->email)->send(new \App\Mail\SendEmailVerificationCodeMail($emailCode->code));
+            } catch (\Throwable $e) {
+                Log::error('[ApplicationFormController] Failed to send email verification code: ' . $e->getMessage());
+            }
+        }
+
         if (!empty($application->phone) && empty($application->phone_verified_at)) {
             $should_verify_phone = true;
 
@@ -382,29 +400,33 @@ class ApplicationFormController extends Controller
             }
 
             $application->refresh(); //in case if consumer changed due to incorrect phone number
+            $consumer = $application->consumer;
 
             if ( // prevent duplicate schedules
                 $should_verify_phone === true &&
                 !$this->application_service->isSpammer($application) &&
-                !$this->application_service->requestedTooManyVerificationCodes($application)
+                !$this->application_service->requestedTooManyVerificationCodes($application) &&
+                $consumer && !empty($consumer->phone)
             ) {
-                $recentSms = ConsumerSMSVerificationCode::where('phone_number', $application->consumer->phone)
+                $recentSms = ConsumerSMSVerificationCode::where('phone_number', $consumer->phone)
                     ->where('created_at', '>', now()->subSeconds(3))
                     ->exists();
                 if (!$recentSms) {
-                    event(new ConsumerRequiresSmsVerificationCode($application->consumer, resend: false));
+                    event(new ConsumerRequiresSmsVerificationCode($consumer, resend: false));
                 }
             }
         }
 
-        if (!empty($application->consumer) &&
-            !empty($application->consumer->email) &&
-            empty($application->consumer->email_verified_at)) {
-            event(new ConsumerRequiresEmailVerificationLink($application->consumer));
+        if ($consumer && !empty($consumer->email) && empty($consumer->email_verified_at)) {
+            event(new ConsumerRequiresEmailVerificationLink($consumer));
         }
 
-        $application->consumer->subscribed = $request->subscribe ? 1 : 0;
-        $application->consumer->save();
+        if ($consumer) {
+            $consumer->subscribed_email = $request->has('subscribed_email') ? ($request->subscribed_email ? 1 : 0) : ($application->subscribed_email ?? 0);
+            $consumer->subscribed_sms = $request->has('subscribed_sms') ? ($request->subscribed_sms ? 1 : 0) : ($application->subscribed_sms ?? 0);
+            $consumer->subscribed = ($consumer->subscribed_email || $consumer->subscribed_sms || $request->subscribe) ? 1 : 0;
+            $consumer->save();
+        }
 
         if (!empty($application->phone_verified_at)) {
             event(new ApplicationPhoneVerified($application));
@@ -440,33 +462,63 @@ class ApplicationFormController extends Controller
             );
         }
 
-        if (!empty($application->phone_verified_at)) {
+        if (!empty($application->email_verified_at) || !empty($application->phone_verified_at)) {
             return redirect($this->getStepUrl($application, 3));
         }
 
-        if (!ConsumerSMSVerificationCode::query()
+        $isEmailVerified = !empty($application->email) && \App\Models\Consumer\ConsumerEmailVerificationCode::verify($application->email, $request->verification_code);
+
+        $isSmsVerified = !empty($application->phone) && ConsumerSMSVerificationCode::query()
             ->where('phone_number', $application->phone)
             ->where('code', $request->verification_code)
             ->where('expires_at', '>=', date('Y-m-d H:i:s'))
-            ->exists()) {
+            ->exists();
+
+        if (!$isEmailVerified && !$isSmsVerified) {
             return redirect()->back()
-                ->with('error', __('Verification code invalid!'));
+                ->with('error', __('Verification code invalid or expired!'));
         }
 
-        $application->phone_verified_at = now();
+        // Pārliecināmies, ka pieteikumam ir piesaistīts patērētājs
+        if (empty($application->consumer_id)) {
+            $application->fillConsumerId();
+            if (empty($application->consumer_id)) {
+                $consumer = app(\App\Services\ConsumerService::class)->createFromApplication($application);
+                $application->consumer_id = $consumer->id;
+            }
+        }
+
+        if ($isEmailVerified) {
+            $application->email_verified_at = now();
+            if ($application->consumer) {
+                $application->consumer->markEmailAsVerified();
+            }
+        }
+
+        if ($isSmsVerified) {
+            $application->phone_verified_at = now();
+            if ($application->consumer) {
+                $application->consumer->markPhoneAsVerified();
+            }
+        }
+
+        // Ja verificēts e-pasts, atzīmējam arī kā phone_verified_at, lai turpinātu plūsmu
+        if (empty($application->phone_verified_at)) {
+            $application->phone_verified_at = now();
+        }
+
         $application->save();
+        $this->application_service->storeInSession($application, $request);
+
         event(new ApplicationPhoneVerified($application));
 
-        if (!empty($application->consumer) && !$application->hasVerifiedPhone() && $application->phone_verified_at) { // Mark consumer phone as verified if application phone is verified
-            $application->consumer->markPhoneAsVerified();
+        $consumer = $application->consumer;
+        if (!empty($consumer) && empty(Auth::guard('consumers')->id())) {
+            Auth::guard('consumers')->login($consumer);
         }
 
-        if (!empty($application->consumer) && empty(Auth::guard('consumers')->id())) {
-            Auth::guard('consumers')->login($application->consumer);
-        }
-
-        if (config('app.rc_enabled') && isset($application->consumer)) {
-            event(new ConsumerSignup($application->consumer));
+        if (config('app.rc_enabled') && isset($consumer)) {
+            event(new ConsumerSignup($consumer));
         }
 
         return redirect($this->getStepUrl($application, 3));

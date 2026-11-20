@@ -366,21 +366,29 @@ class Application extends Model implements Consumerable
 
         if (!$shouldSearch && !empty($this->consumer_id)) {
             $currentConsumer = $this->consumer;
-            if ($currentConsumer && $currentConsumer->phone !== $this->phone) {
+            if ($currentConsumer && $currentConsumer->email !== $this->email) {
                 $shouldSearch = true;
             }
         }
 
-        if ($shouldSearch && !empty($this->phone)) {
-            $consumer = Consumer::query()->where('phone', $this->phone)->select(['id', 'email'])->first();
+        if ($shouldSearch && !empty($this->email)) {
+            $consumer = Consumer::query()->where('email', $this->email)->select(['id', 'email', 'phone'])->first();
             if (!empty($consumer->id)) {
                 $this->consumer_id = $consumer->id;
                 $this->save();
 
-                if (empty($consumer->email) && !empty($this->email)) {
-                    $consumer->email = $this->email;
+                if (empty($consumer->phone) && !empty($this->phone)) {
+                    $consumer->phone = $this->phone;
                     $consumer->save();
                 }
+            }
+        }
+
+        if (empty($this->consumer_id) && !empty($this->phone)) {
+            $consumer = Consumer::query()->where('phone', $this->phone)->select(['id', 'email', 'phone'])->first();
+            if (!empty($consumer->id)) {
+                $this->consumer_id = $consumer->id;
+                $this->save();
             }
         }
 

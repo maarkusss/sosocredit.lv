@@ -67,6 +67,11 @@ class Consumer extends Authenticatable implements MustVerifyEmail, Consumerable
     protected $guarded = [];
     protected $table = 'consumers';
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected static function newFactory(): Factory
     {
         return ConsumerFactory::new();
@@ -149,7 +154,17 @@ class Consumer extends Authenticatable implements MustVerifyEmail, Consumerable
      */
     public function isSubscribedToEmailsAndSms(): bool
     {
-        return !empty($this->subscribed);
+        return !empty($this->subscribed) || (!empty($this->subscribed_email) && !empty($this->subscribed_sms));
+    }
+
+    public function isSubscribedToEmail(): bool
+    {
+        return !empty($this->subscribed_email) || !empty($this->subscribed);
+    }
+
+    public function isSubscribedToSms(): bool
+    {
+        return !empty($this->subscribed_sms) || !empty($this->subscribed);
     }
 
     /**

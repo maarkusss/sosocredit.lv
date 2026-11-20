@@ -106,7 +106,7 @@
     <main>
         <section class="w-full bg-loan-normal px-3 flex justify-center" id="slogan-top" style="height: 1px;"></section>
         <section class="section py-5 sm:py-8">
-            <div class="max-w-screen-xl px-0 sm:px-4 mx-auto">
+            <div class="section__content">
                 <div class="flex flex-col items-center justify-center">
                     @if (!empty($section->h1_description))
                         <div class="section__content__hero">
