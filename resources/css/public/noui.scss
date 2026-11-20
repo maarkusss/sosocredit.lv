@@ -1,0 +1,51 @@
+.noUi-horizontal {
+    height: 0.5rem !important;
+    border-radius: 0.5rem !important;
+    border: none !important;
+}
+
+.public-section_primary .noUi-horizontal {
+    background-color: #d7e2dd !important;
+}
+
+.public-section_loan .noUi-horizontal {
+    background-color: #d7e2dd !important;
+}
+
+.noUi-handle {
+    border-radius: 100px !important;
+    width: 26px !important;
+    height: 26px !important;
+    top: -9px !important;
+    border: 6px solid #297935 !important;
+}
+
+.noUi-handle:before,
+.noUi-handle:after {
+    display: none !important;
+}
+
+.noUi-connects {
+    border-radius: 0.5rem !important;
+}
+
+.noUi-connect {
+    border-radius: 0.5rem !important;
+}
+
+.public-section_primary .noUi-connect {
+    background-color: #297935 !important;
+}
+
+.public-section_loan .noUi-connect {
+    background-color: #297935 !important;
+}
+
+.applicant-form {
+    .noUi-horizontal {
+        background-color: #d7e2dd !important;
+    }
+    .noUi-connect {
+        background-color: #297935 !important;
+    }
+}

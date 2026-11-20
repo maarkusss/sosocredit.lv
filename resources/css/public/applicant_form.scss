@@ -1,0 +1,209 @@
+.applicant-form {
+
+    .applicant-form__input-wrap {
+        label {
+            @apply inline-block text-sm text-gray-500 mb-1 ml-1
+        }
+    }
+
+    .applicant-form__input {
+        @apply w-full px-4 py-3 bg-white border-gray-300 rounded focus:border-loan-dark focus:ring-loan-dark
+    }
+
+    .applicant-form__select {
+        @apply min-w-[80px] px-4 py-3 bg-white border-gray-300 rounded focus:border-loan-dark focus:ring-loan-dark
+    }
+
+
+    .applicant-form__breadcrumbs {
+        @apply flex w-full pb-2
+    }
+
+        .applicant-form__breadcrumb {
+            @apply relative flex-1 text-center
+        }
+
+        .applicant-form__breadcrumb__bgline {
+            @apply w-full h-1 bg-gray-300 rounded-full
+        }
+
+        .applicant-form__breadcrumb__title_active {
+            @apply text-xs sm:text-sm font-semibold leading-none text-loan-normal
+        }
+
+        .applicant-form__breadcrumb__title_inactive {
+            @apply text-xs sm:text-sm font-semibold leading-none text-gray-500
+        }
+
+        .applicant-form__breadcrumb__dot_active {
+            @apply absolute inset-x-0 w-4 h-4 mx-auto mt-px border-4 border-white rounded-lg shadow bg-loan-normal
+        }
+
+        .applicant-form__breadcrumb__dot_inactive {
+            @apply absolute inset-x-0 w-4 h-4 mx-auto mt-px border-4 border-white rounded-lg shadow bg-gray-500
+        }
+
+
+    input.checkbox_switch {
+        position: relative;
+        appearance: none; outline: none;
+        width: 50px; height: 30px;
+        background-color: #ffffff; border: 1px solid #D9DADC;
+        border-radius: 50px; box-shadow: inset -20px 0 0 0 #ffffff;
+        transition-duration: 200ms;
+    }
+
+    input.checkbox_switch:after {
+        content: "";
+        position: absolute;
+        top: 1px; left: 1px;
+        width: 26px; height: 26px;
+        background-color: transparent;
+        border-radius: 50%; box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+    }
+
+    input.checkbox_switch:checked {
+        border-color: #4ED164;
+        box-shadow: inset 20px 0 0 0 #4ED164;
+    }
+
+    input.checkbox_switch:checked:after {
+        left: 20px;
+        box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+    }
+
+
+    .switch {
+        position: relative;
+        display: block;
+        vertical-align: top;
+        width: 60px;
+        height: 30px;
+        padding: 3px;
+        margin: 0 .5rem 0 0;
+        background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+        background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+        border-radius: 18px;
+        box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        box-sizing:content-box;
+    }
+    .switch-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        box-sizing:content-box;
+    }
+    .switch-label {
+        position: relative;
+        display: block;
+        height: inherit;
+        font-size: 10px;
+        text-transform: uppercase;
+        background: #eceeef;
+        border-radius: inherit;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+        box-sizing:content-box;
+    }
+    .switch-label:before, .switch-label:after {
+        position: absolute;
+        top: 50%;
+        margin-top: -.5em;
+        line-height: 1;
+        -webkit-transition: inherit;
+        -moz-transition: inherit;
+        -o-transition: inherit;
+        transition: inherit;
+        box-sizing:content-box;
+        font-size: 12px;
+    }
+    .switch-label:before {
+        content: attr(data-off);
+        right: 11px;
+        color: #aaaaaa;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+    }
+    .switch-label:after {
+        content: attr(data-on);
+        left: 11px;
+        color: #FFFFFF;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+    }
+    .switch-input:checked ~ .switch-label {
+        background: #3FAF4F;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+    .switch-input:checked ~ .switch-label:before {
+        opacity: 0;
+    }
+    .switch-input:checked ~ .switch-label:after {
+        opacity: 1;
+    }
+    .switch-handle {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+        background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+        border-radius: 100%;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .switch-handle:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -6px 0 0 -6px;
+        width: 12px;
+        height: 12px;
+        background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+        background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+        border-radius: 6px;
+        box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+    }
+    .switch-input:checked ~ .switch-handle {
+        left: 34px;
+        box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Transition
+    ========================== */
+    .switch-label, .switch-handle {
+        transition: All 0.3s ease;
+        -webkit-transition: All 0.3s ease;
+        -moz-transition: All 0.3s ease;
+        -o-transition: All 0.3s ease;
+    }
+}
+
+.applicant-form__wrapper {
+    @apply flex flex-col justify-between h-full
+}
+
+.applicant-form__left {
+    @apply order-1 flex flex-col items-start text-left
+}
+
+.applicant-form__right {
+    @apply order-2
+}
+
+.applicant-form__button {
+    @apply w-full px-5 py-3 text-lg font-semibold text-center text-white transition-all duration-200 rounded bg-[#3FAF4F] border border-green-600 hover:bg-loan-dark focus:outline-none
+}
+
+.applicant-form__back-button {
+    @apply w-full py-3 text-lg font-semibold text-center flex flex-row justify-center items-center mr-2 text-loan-normal transition-all duration-200 rounded bg-white border border-loan-normal hover:bg-gray-50 focus:outline-none
+}
+
+.applicant-form__footer {
+    @apply mt-2 text-xs font-normal leading-tight text-center text-gray-600
+}
+
+.select_typeid {
+    @apply border-0 text-[1.125rem] leading-10 font-semibold pl-5 py-3 focus:ring-loan-normal focus:outline-none border-transparent focus:border-transparent focus:ring-0
+}

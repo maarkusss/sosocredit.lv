@@ -1,0 +1,32 @@
+@keyframes loan-modal-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+input[type="range"].loan-range-input {
+    background: transparent;
+    accent-color: transparent;
+    margin: 0;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px; height: 20px;
+        border-radius: 9999px;
+        background: #fff;
+        border: 5px solid theme('colors.green.800');
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        position: relative;
+        z-index: 3;
+    }
+    &::-moz-range-thumb {
+        width: 20px; height: 20px;
+        border-radius: 9999px;
+        background: #fff;
+        border: 5px solid theme('colors.green.800');
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+    &::-webkit-slider-runnable-track { background: transparent; border: none; box-shadow: none; }
+    &::-moz-range-track { background: transparent; }
+}

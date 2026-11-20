@@ -1,0 +1,63 @@
+.animate-character
+{
+    background-image: linear-gradient(
+            -90deg,
+            #746ea9 0%,
+            #7f7faf 30%,
+            #ff7473 70%,
+            #ff4b4a 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #222222;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 3s linear infinite;
+    display: inline-block;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
+
+
+.animate-fadeinout {
+    webkit-animation: fadeinout 4s linear infinite;
+    animation: fadeinout 4s linear infinite;
+}
+
+@-webkit-keyframes fadeinout {
+    0%,100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+    0%,100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #FFFFFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

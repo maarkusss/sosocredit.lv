@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateLoanTypesHistory extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('loan_types__history', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('loan_type_id')->unsigned();
+            $table->string('lang', 7);
+            $table->string('name');
+            $table->string('route_name');
+            $table->string('title');
+            $table->string('description', 255)->nullable();
+            $table->string('keywords')->nullable();
+            $table->text('text')->nullable();
+            $table->string('h1', 255)->nullable();
+            $table->text('h1_description')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('loan_types__history');
+    }
+}

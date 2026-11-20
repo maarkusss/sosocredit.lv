@@ -1,0 +1,24 @@
+/**
+ * CSS files required only in admin area
+ */
+
+@tailwind base;
+@tailwind components;
+
+@import 'global_tailwind_classes';
+@import 'admin/tailwind_classes';
+
+@tailwind utilities;
+
+@import 'admin/flatpickr.min.css';
+
+#dropdown-toggle,
+#dropdown-toggle_1 {
+    transition: .2s;
+}
+
+#dropdown-toggle.toggled,
+#dropdown-toggle_1.toggled {
+    transform: rotate(180deg);
+    transition: .2s;
+}

@@ -1,0 +1,95 @@
+/**
+ * CSS files required publicly
+ */
+
+@tailwind base;
+@tailwind components;
+
+@import "global_tailwind_classes";
+@import "public/tailwind_classes";
+@import "public/applicant_form";
+@import "public/animations";
+@import "public/loan-modal";
+
+@tailwind utilities;
+
+@import "./public/noui";
+@import "nouislider/dist/nouislider.css";
+
+input[type="range"] {
+    -webkit-appearance: none;
+    margin-right: 15px;
+    height: 12px;
+    border-radius: 4px;
+    background-color: #3faf4f;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    transition: background 0.3s ease-in-out;
+
+    background: #fff;
+    cursor: default;
+    box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+    border: 1px solid #dddddd;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+[x-cloak] {
+    display: none;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.reviews-swiper {
+    visibility: hidden;
+}
+.reviews-swiper.swiper-initialized {
+    visibility: visible;
+}
+
+.reviews-swiper .swiper-pagination {
+    position: relative;
+    text-align: center;
+}
+
+.reviews-swiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #297935;
+    opacity: 0.2;
+    border-radius: 9999px;
+    transition: width 0.25s ease, opacity 0.25s ease;
+}
+
+.reviews-swiper .swiper-pagination-bullet-active {
+    width: 28px;
+    opacity: 1;
+}
+
+.review-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#amount_display,
+#term_months_input {
+    visibility: hidden;
+}

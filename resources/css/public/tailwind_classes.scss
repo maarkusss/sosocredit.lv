@@ -1,0 +1,349 @@
+/**
+ * Public Section
+ */
+.public-section {
+
+    .header {
+        @apply sticky top-0 left-0 right-0 z-30 flex bg-white shadow-md
+    }
+
+        .header__wrapper {
+            @apply inline-flex items-center justify-between w-full max-w-screen-xl p-3 md:p-4 mx-auto
+        }
+
+        .header__wrapper__locales {
+            @apply inline-flex items-center justify-start gap-6
+        }
+
+        .header__wrapper__locales__button {
+            @apply flex items-center text-sm font-medium
+        }
+
+            .header__wrapper__locales__button_applicant {
+                @apply text-loan-normal hover:text-loan-dark
+            }
+
+        .header__wrapper__locales__dropdown {
+            @apply bg-white border outline-neutral-400 rounded-md shadow-lg
+        }
+
+            .header__wrapper__locales__dropdown__li {
+                @apply flex w-24 rounded-md
+            }
+
+            .header__wrapper__locales__dropdown__a {
+                @apply w-full px-4 py-2 text-sm font-medium
+            }
+
+                .header__wrapper__locales__dropdown__a_applicant {
+                    @apply text-loan-normal hover:text-loan-dark
+                }
+
+        .header__menu {
+            @apply items-center justify-between hidden w-full flex-row lg:flex
+        }
+
+            .header__menu ul {
+                @apply flex flex-col lg:flex-row list-none lg:ml-auto
+            }
+
+                .header__menu li {
+                    @apply px-1
+                }
+
+                .header__menu a {
+                    @apply px-3.5 py-1 font-semibold text-gray-600 rounded-full border border-transparent cursor-pointer
+                }
+
+                .header__menu a:hover {
+                    @apply border-green-500
+                }
+
+                .header__menu a.active {
+                    @apply bg-[#ff8c85] bg-gradient-to-r from-[#ff8c85] to-[#fb9774] text-white
+                }
+
+    .section {
+        @apply pb-24
+    }
+
+    .section_narrower {
+        @apply pb-16
+    }
+
+    .section_double {
+        @apply lg:grid lg:grid-cols-[1fr_600px_600px_1fr];
+    }
+
+    .section_double .left-content {
+        @apply px-10 pt-8 md:pl-16 md:py-12 max-w-7xl mx-auto;
+    }
+
+    .section_double .right-content {
+        @apply px-6 pt-6 md:px-16 md:py-12 max-w-7xl mx-auto;
+    }
+
+    /* Mobile order control */
+    .section_double.right-first .right-content {
+        @apply order-first;
+    }
+
+    .section_slogan {
+        @apply w-full
+    }
+
+        .section__content {
+            @apply max-w-screen-xl px-4 mx-auto
+        }
+
+        .section__aside {
+            @apply hidden lg:block place-items-start mx-auto mt-20 pt-2
+        }
+
+        .section__content__hero {
+            @apply flex flex-col items-center justify-start w-full max-w-screen-md mb-8
+        }
+
+            .section__content__hero__heading {
+                @apply text-3xl font-semibold leading-tight text-center sm:text-4xl md:text-5xl
+            }
+
+    /**
+     * Landing Form
+     */
+    .landing-form-wrapper {
+        @apply flex flex-col flex-shrink-0 w-full max-w-[840px]
+    }
+
+        .landing-form__steps {
+            @apply w-full p-4 md:p-8 bg-white rounded-lg shadow-xl sm:p-8
+        }
+
+        .landing-form__back-button {
+            @apply inline-flex items-center hover:underline focus:outline-none
+        }
+
+        .landing-form__breadcrumbs {
+            @apply flex w-full pb-2
+        }
+
+            .landing-form__breadcrumb {
+                @apply relative flex-1 text-center
+            }
+
+            .landing-form__breadcrumb__bgline {
+                @apply w-full h-1 bg-gray-300 rounded-full
+            }
+
+            .landing-form__breadcrumb__title_active {
+                @apply text-sm font-semibold leading-none
+            }
+
+            .landing-form__breadcrumb__title_inactive {
+                @apply text-sm font-semibold leading-none text-gray-500
+            }
+
+            .landing-form__breadcrumb__dot_active {
+                @apply absolute inset-x-0 w-4 h-4 mx-auto mt-px border-4 border-white rounded-lg shadow
+            }
+
+            .landing-form__breadcrumb__dot_inactive {
+                @apply absolute inset-x-0 w-4 h-4 mx-auto mt-px border-4 border-white rounded-lg shadow bg-gray-500
+            }
+
+        .landing-form__button {
+            @apply w-full px-5 py-4 text-lg font-semibold text-center text-white transition-all duration-200 rounded focus:outline-none
+        }
+
+        .landing-form__footer {
+            @apply mt-2 text-xs font-normal leading-tight text-center text-gray-600
+        }
+
+
+    /**
+     * Various homepage sections
+     */
+    .section__content__heading-wrapper {
+        @apply flex flex-col items-center justify-start pt-10 md:pt-16
+    }
+
+        .section__content__heading {
+            @apply block text-xl md:text-3xl font-bold md:font-semibold leading-7 md:leading-none text-center
+        }
+
+        .section__content__make-bg-visible {
+            @apply bg-white rounded-lg shadow-xl
+        }
+
+    .section__content__steps-wrapper {
+        @apply grid grid-cols-1 gap-4 md:gap-y-8
+    }
+
+        .section__content__step {
+            @apply flex flex-col items-center justify-start flex-shrink-0 w-full
+        }
+
+        .section__content__step__title {
+            @apply text-2xl font-semibold
+        }
+
+        .section__content__step__subtitle {
+            @apply text-base sm:text-base font-bold leading-normal text-center
+        }
+
+        .section__content__step__desc {
+            @apply md:w-64 text-sm sm:text-sm font-medium leading-tight text-center
+        }
+
+
+    /**
+     * Content pages
+     */
+    .content__heading {
+        @apply justify-start text-neutral-900 text-xl font-bold ml-4 md:ml-24
+    }
+
+    .content__content {
+        @apply px-4 md:px-24 py-4 text-base font-medium leading-tight text-neutral-900
+    }
+}
+
+.public-section_primary {
+
+    .header__wrapper__locales__button_default {
+        @apply text-primary-normal hover:text-primary-dark
+    }
+
+        .header__wrapper__locales__dropdown__a_default {
+            @apply text-primary-normal hover:text-primary-dark
+        }
+
+    .section_slogan {
+        @apply bg-primary-normal
+    }
+
+        .section__content__step__title {
+            @apply text-primary-normal
+        }
+
+        .landing-form__back-button {
+            @apply text-primary-normal hover:text-primary-dark
+        }
+
+        .landing-form__breadcrumb__title_active {
+            @apply text-primary-normal
+        }
+
+        .landing-form__breadcrumb__dot_active {
+            @apply bg-primary-normal
+        }
+
+        .landing-form__button {
+            @apply bg-primary-normal hover:bg-primary-dark
+        }
+
+    .bg_primary {
+        @apply bg-primary-normal
+    }
+
+    .bg_primary_dark {
+        @apply bg-primary-dark
+    }
+
+    .border_primary {
+        @apply border-primary-normal
+    }
+
+    .border_primary_dark {
+        @apply focus:border-primary-dark
+    }
+
+    .button_primary {
+        @apply bg-primary-normal hover:bg-primary-dark
+    }
+
+    .link_primary {
+        @apply hover:text-primary-dark
+    }
+
+    .ring_primary_dark {
+        @apply focus:ring-primary-dark
+    }
+
+    .text_primary {
+        @apply text-primary-normal
+    }
+}
+
+/*
+ * Color: loan (green)
+ */
+.public-section_loan {
+
+    .header__wrapper__locales__button_default {
+        @apply text-loan-normal hover:text-loan-dark
+    }
+
+        .header__wrapper__locales__dropdown__a_default {
+            @apply text-loan-normal hover:text-loan-dark
+        }
+
+        .header__wrapper__locales__button_default {
+            @apply text-loan-normal hover:text-loan-dark
+        }
+
+    .section_slogan {
+        @apply bg-loan-normal
+    }
+
+        .section__content__step__title {
+            @apply text-loan-normal
+        }
+
+        .landing-form__back-button {
+            @apply text-loan-normal hover:text-loan-dark
+        }
+
+        .landing-form__breadcrumb__title_active {
+            @apply text-loan-normal
+        }
+
+        .landing-form__breadcrumb__dot_active {
+            @apply bg-loan-normal
+        }
+
+        .landing-form__button {
+            @apply bg-loan-normal hover:bg-loan-dark
+        }
+
+    .bg_primary {
+        @apply bg-loan-normal
+    }
+
+
+
+    .border_primary {
+        @apply border-loan-normal
+    }
+
+    .border_primary_dark {
+        @apply focus:border-loan-dark
+    }
+
+    .button_primary {
+        @apply bg-loan-normal hover:bg-loan-dark
+    }
+
+    .link_primary {
+        @apply hover:text-loan-dark
+    }
+
+    .ring_primary_dark {
+        @apply focus:ring-loan-dark
+    }
+
+    .text_primary {
+        @apply text-loan-normal
+    }
+}
+

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.3",
+        "alpinejs": "^3.14.9",
+        "autoprefixer": "^10.4.10",
+        "axios": "^1.13.5",
+        "laravel-vite-plugin": "^2.1.0",
+        "lodash": "^4.17.19",
+        "postcss": "^8.4.16",
+        "sass": "^1.54.9",
+        "tailwindcss": "^3.1.8",
+        "vite": "^7.3.1"
+    },
+    "dependencies": {
+        "@tailwindcss/typography": "^0.5.7",
+        "apexcharts": "^3.35.5",
+        "flatpickr": "^4.6.13",
+        "imask": "^6.4.2",
+        "nouislider": "^15.6.1",
+        "swiper": "^12.1.3"
+    }
+}
